@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
 
-import { useGlobalContext } from './context'
+import { useGlobalContext } from "./context";
+import News from "./news";
 
 const Stories = () => {
-  return <h2>stories component</h2>
-}
+  const { list, isLoading } = useGlobalContext();
+  const {hits}=list
 
-export default Stories
+  if (isLoading) {
+    return <h1> LOADING ...</h1>;
+  }
+  return(
+    <section className='stories'>
+      {hits && hits.map(item=>{
+        return <News id={item.objectID} {...item} />
+      })}
+    </section>
+
+  )
+};
+
+export default Stories;
